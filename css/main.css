@@ -433,3 +433,13 @@
     margin-right: 20px;
   }
 
+  .click-able{
+    cursor: pointer
+  }
+
+
+/*@keyframes moveSlideshow {
+  100% { 
+    transform: translateX(-66.6666%);  
+  }
+}*/

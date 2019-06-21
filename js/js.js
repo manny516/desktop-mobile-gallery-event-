@@ -42,8 +42,26 @@
 		"mobile_img" : "set01_05_mobile.jpg"
 	}
 
-	]
+	]	
 
+	for(var i = 0; i < adData.length; i++){
+		var deskImg = adData[i]['desk_img'];
+		var createArt = document.createElement('article');
+		artTag.appendChild(createArt)
+		var getArt = document.querySelectorAll("article");
+		artTag.style.backgroundImage="url(images/"+deskImg+")";
+
+		for(var j = 0; j < getArt.length; j++){
+			var artName = getArt[j];
+			var classAdded = getArt[j].className="ad-slide";
+			//var addBG = getArt[j].style.backgroundImage = "url(images/"+deskImg+")";
+		}
+		
+		artName.style.backgroundImage = "url(images/"+deskImg+")";
+		artName.style.backgroundSize = "cover";
+
+	}
 	console.log(adData);
+	console.log(deskImg);
 
 })();

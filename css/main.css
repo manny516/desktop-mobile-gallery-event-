@@ -386,7 +386,7 @@
   .ad-slide{
     flex: 0 0 auto;
     padding: 5px;
-    min-width: 550px;
+    min-width: 500px;
     height: 270px;
     border:1px solid #FFF;  
     color:#FFF;

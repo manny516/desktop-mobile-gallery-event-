@@ -118,7 +118,11 @@
 	//Left and right arrow click event handlers to track user clicks and position in Ad Data array
 	function arrowClick(){
 		let count = 0; 
+		let translateX = count * 100;
+		let slideAd = document.querySelectorAll('.ad-slide');
+		console.log(slideAd);
 
+		
 		rightArrow.addEventListener("click",function(){
 
 			if(leftArrow.classList = 'hide-arrow' ){
@@ -127,12 +131,27 @@
 				highLight.classList.add('stop-point');
 			}
 
+			if( count == 1){
+				highLight.classList.add('shove-slide');
+				translateX = -100;
+				translateX += 100;
+			}
+
 			if(count <= adData.length){
 				count += 1; 
-				console.log(adData.length - 1);
+				//console.log(adData.length - 1);
 				startNum.innerHTML = count + 1;
 				highLightBox(count);
+				translateX -= 100;
+
 			} 
+
+
+			if( highLight.classList == 'ad-highlight stop-point shove-slide'){
+				for(let i = 0; i < slideAd.length; i++ ){
+					slideAd[i].style.transform = "translateX(" + translateX + "%)";
+				}
+			}
 
 
 			if(count === adData.length - 1){
@@ -141,13 +160,14 @@
 			}
 			
 			console.log("Position in the array : " + count);
-			console.log(adData[count]);
+			//console.log(adData[count]);
+
+			console.log(translateX);
 
 		});
 
 
 		leftArrow.addEventListener("click",function(){
-			
 				if(rightArrow.classList = 'hide-arrow' ){
 					rightArrow.classList.remove('hide-arrow');
 					rightArrow.classList.add('click-able');
@@ -157,16 +177,36 @@
 					count -= 1; 
 					startNum.innerHTML = count + 1;
 					highLightBox(count);
+					translateX  += 100;
 				}
+
+				if( count == 1){
+					highLight.classList.remove('shove-slide');
+					for(let i = 0; i < slideAd.length; i++ ){
+						slideAd[i].style.transform = null;
+					};
+				}
+
+
+				if( highLight.classList == 'ad-highlight stop-point shove-slide'){
+
+					for(let i = 0; i < slideAd.length; i++ ){
+						slideAd[i].style.transform = "translateX(" + translateX + "%)";
+					}
+
+				}
+
 
 				if(count === 0 ){
 					leftArrow.className= "hide-arrow";
 					highLight.classList.remove('stop-point');
+					translateX = 100;
 					console.log('Youve reached the beginning ');
 				}
 
 			console.log("Position in the array : " + count);
 			console.log(adData[count]);
+			console.log(translateX);
 			
 		});
 

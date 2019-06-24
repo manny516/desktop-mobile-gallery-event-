@@ -377,7 +377,7 @@
   .ad-container, .slider-container, .inner-slide{
     display: flex;
     flex-wrap: : nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     height: 270px;
     font-family: arial;
     position: relative;
@@ -386,7 +386,7 @@
 
   .slider-container{
      /* animation: moveSlideshow 15s linear infinite;*/
-      
+
   }
 
 
@@ -462,6 +462,19 @@
     position: absolute;
     left:500px;
   }
+
+   @media only screen and (max-width: 1019px) {
+
+    .stop-point{
+      position: none;
+      left:0px;
+    }
+
+  }
+
+
+
+ 
 
 @keyframes moveSlideshow {
   100% { 

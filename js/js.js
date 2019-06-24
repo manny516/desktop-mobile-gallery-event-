@@ -18,7 +18,7 @@
 	{
 		"logo" : "slidemobilelogo.png",
 		"header" : "Lorem ipsum dolor sit amet",
-		"summary" : "adipiscing elit. Vivamus tincidunt egestas est, a euismod elit dictum quis",
+		"summary" : "adipiscing elit. Vivamus tincidunt egesta1s est, a euismod elit dictum quis",
 		"desk_img" : "set01_01_desktop.jpg", 
 		"mobile_img" : "set01_01_mobile.jpg"
 	},
@@ -77,7 +77,7 @@
 
 		console.log(dataDisplay['header']);
 
-		//console.log(adContent.childNodes);
+		//console.log(adContent.childNodes);=
 	}
 
 	// Loop through Ad DATA / Check Browser size / Set Ad image variable based on browser size
@@ -89,7 +89,9 @@
 			if( browserWidth <= 1020){
 				deskImg = adData[i]['mobile_img'];
 				console.log("Mobile size");
-			}else{
+			}
+
+			if( browserWidth >= 1020){
 				deskImg = adData[i]['desk_img'];
 				console.log("Desktop");
 			}
@@ -107,6 +109,8 @@
 			artName.style.backgroundImage = "url(images/"+deskImg+")";
 			artName.style.backgroundSize = "cover";
 
+
+
 		}
 
 		console.log(adData);
@@ -115,59 +119,70 @@
 
 	}
 
+
+	function pixelFire(){
+		  var evp = document.createElement('img');
+		  evp.height = 1;
+		  evp.width = 1;
+		  evp.style.display = "none";
+		  evp.src = 'https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=28240034&PluID=0&ord=[timestamp]&rtu=-1&pcp=$$$$page_view_id=%%PATTERN:page_view_id%%&pos=%%PATTERN:pos%%$$$$) ';
+		  document.body.appendChild(evp);
+		  console.log("pixel Fire"+ evp.src);
+	}
+
 	//Left and right arrow click event handlers to track user clicks and position in Ad Data array
-	function arrowClick(){
+	function arrowClick(){		
+
 		let count = 0; 
 		let translateX = count * 100;
 		let slideAd = document.querySelectorAll('.ad-slide');
 		console.log(slideAd);
 
-		
 		rightArrow.addEventListener("click",function(){
 
-			if(leftArrow.classList = 'hide-arrow' ){
-				leftArrow.classList.remove('hide-arrow');
-				leftArrow.classList.add('click-able');
-				highLight.classList.add('stop-point');
-			}
-
-			if( count == 1){
-				highLight.classList.add('shove-slide');
-				translateX = -100;
-				translateX += 100;
-			}
-
-			if(count <= adData.length){
-				count += 1; 
-				//console.log(adData.length - 1);
-				startNum.innerHTML = count + 1;
-				highLightBox(count);
-				translateX -= 100;
-
-			} 
-
-
-			if( highLight.classList == 'ad-highlight stop-point shove-slide'){
-				for(let i = 0; i < slideAd.length; i++ ){
-					slideAd[i].style.transform = "translateX(" + translateX + "%)";
+				pixelFire();
+				
+				if(leftArrow.classList = 'hide-arrow' ){
+					leftArrow.classList.remove('hide-arrow');
+					leftArrow.classList.add('click-able');
+					highLight.classList.add('stop-point');
 				}
-			}
+
+				if( count == 1){
+					highLight.classList.add('shove-slide');
+					translateX = -100;
+					translateX += 100;
+				}
+
+				if(count <= adData.length){
+					count += 1; 
+					//console.log(adData.length - 1);
+					startNum.innerHTML = count + 1;
+					highLightBox(count);
+					translateX -= 100;
+
+				} 
 
 
-			if(count === adData.length - 1){
-				console.log('Youve reach the end ');
-				rightArrow.className= "hide-arrow";
-			}
-			
-			console.log("Position in the array : " + count);
-			//console.log(adData[count]);
+				if( highLight.classList == 'ad-highlight stop-point shove-slide'){
+					for(let i = 0; i < slideAd.length; i++ ){
+						slideAd[i].style.transform = "translateX(" + translateX + "%)";
+					}
+				}
 
-			console.log(translateX);
 
+				if(count === adData.length - 1){
+					console.log('Youve reach the end ');
+					rightArrow.className= "hide-arrow";
+				}
+				
+				console.log("Position in the array : " + count);
 		});
 
 
 		leftArrow.addEventListener("click",function(){
+
+				pixelFire();
 				if(rightArrow.classList = 'hide-arrow' ){
 					rightArrow.classList.remove('hide-arrow');
 					rightArrow.classList.add('click-able');
@@ -204,14 +219,56 @@
 					console.log('Youve reached the beginning ');
 				}
 
-			console.log("Position in the array : " + count);
-			console.log(adData[count]);
-			console.log(translateX);
+				console.log("Position in the array : " + count);
+				console.log(adData[count]);
+				console.log(translateX);
 			
 		});
 
+		 console.log('hello');
+
 	}
 
+
+	window.addEventListener('resize', function(){
+		let browserWidth = window.innerWidth;
+
+		for(let i = 0 ; i < adData.length ; i++){
+
+			//console.log("Mobile image : " + adData[i]['mobile_img'] + "Desktop : " + adData[i]['desk_img']);
+
+			if( browserWidth <= 1020){
+				var imgView = adData[i]['mobile_img'];
+			}else{
+				var imgView = adData[i]['desk_img'];
+			}
+
+			var getAdSlide = document.querySelectorAll('.ad-slide');
+
+			//console.log(getAdSlide);
+
+			/*for(let u = 0; u < getAdSlide.length; u++){
+				console.log(getAdSlide[u]);
+			}*/
+
+			getAdSlide[i].style.backgroundImage = "url(images/"+imgView+")";
+
+		}
+		
+		if(browserWidth >= 1020 ){
+			/*browserView = 'desktop';
+			console.log(browserView);
+			arrowClick(browserView);*/
+			highLight.classList.remove('mobileview');
+		}else{
+			highLight.classList.add('mobileview');
+		}
+
+
+	},false);
+
+
+	//console.log(browserView);
 	imageArtData();
 	arrowClick();
 	highLightBox();

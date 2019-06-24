@@ -374,13 +374,19 @@
   03. AD Slide CSS
 ************************/
 
-  .ad-container{
+  .ad-container, .slider-container, .inner-slide{
     display: flex;
     flex-wrap: : nowrap;
     overflow-x: auto;
     height: 270px;
     font-family: arial;
     position: relative;
+  }
+
+
+  .slider-container{
+     /* animation: moveSlideshow 15s linear infinite;*/
+      
   }
 
 
@@ -394,11 +400,15 @@
   }
 
   .ad-highlight{
-    background: #000;
+    background: rgba(0, 0, 0, 0.6);
     height:100%;
     position: absolute;
     color: #FFF;
+    min-width: 500px;
+    z-index: 99;
   }
+
+
 
   .ad-content-container{
     width:90%;
@@ -422,7 +432,7 @@
   .ad-cta button{
     padding:10px;
     font-size:14px;
-    background: #000;
+    background: rgba(0, 0, 0, 0.6);
     border:1px solid #FFF;
     border-radius: 3px;
     color:#FFF;
@@ -453,8 +463,8 @@
     left:500px;
   }
 
-/*@keyframes moveSlideshow {
+@keyframes moveSlideshow {
   100% { 
     transform: translateX(-66.6666%);  
   }
-}*/
+}

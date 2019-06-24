@@ -1,7 +1,7 @@
 (function(){
 
 	//Setup variables to grab elements in the DOM needed for the slider
-	let artTag = document.querySelector('.ad-container');
+	let artTag = document.querySelector('.slider-container');
 	let highLight = document.querySelector('.ad-highlight');
 	let rightArrow = document.querySelector('#arrow-right');
 	let leftArrow = document.querySelector('#arrow-left');
@@ -12,10 +12,7 @@
 	//Set up variable to track browser width.
 	let browserWidth = window.innerWidth;
 
-	let count = 0; 
-
-
-	//store Ad slide data in an array Object
+	//Store Ad slide data in an array Object
 	let adData = [ 
 
 	{
@@ -60,22 +57,28 @@
 
 	];
 
+	//Set the end of the ad number indicator the length of the list of items in the Ad data array.
 	endNum.innerHTML = adData.length;
 
-
 	//Creating the high light box to pull add data;
-	function highLightBox(){
+	function highLightBox(countPosition){
 
-		let adContent = document.querySelector('.ad-logo');
-		let adHeadline = document.querySelector('.ad-headline');
-		let adSummary = document.querySelector('ad-summary');
-		let adCta = document.querySelector('ad-cta button');
-		
+		//set default value of the count position to the beginning of the index if no value is present. 
+		countPosition = countPosition || 0 ;
+
+		let adLogo = document.querySelector('.ad-logo img');
+		let adHeadline = document.querySelector('.ad-headline h2');
+		let adSummary = document.querySelector('.ad-summary p');
+		let dataDisplay = adData[countPosition];
+
+		adLogo.setAttribute('src','images/' + dataDisplay['logo'] );
+		adHeadline.innerHTML = dataDisplay['header'];
+		adSummary.innerHTML = dataDisplay['summary'];
+
+		console.log(dataDisplay['header']);
 
 		//console.log(adContent.childNodes);
 	}
-
-	highLightBox();
 
 	// Loop through Ad DATA / Check Browser size / Set Ad image variable based on browser size
 	//create article tag/ nest new element inside parent/ add class and background image to Article tag
@@ -114,6 +117,7 @@
 
 	//Left and right arrow click event handlers to track user clicks and position in Ad Data array
 	function arrowClick(){
+		let count = 0; 
 
 		rightArrow.addEventListener("click",function(){
 
@@ -127,6 +131,7 @@
 				count += 1; 
 				console.log(adData.length - 1);
 				startNum.innerHTML = count + 1;
+				highLightBox(count);
 			} 
 
 
@@ -151,6 +156,7 @@
 				if(count  > 0 ){
 					count -= 1; 
 					startNum.innerHTML = count + 1;
+					highLightBox(count);
 				}
 
 				if(count === 0 ){
@@ -163,11 +169,12 @@
 			console.log(adData[count]);
 			
 		});
+
 	}
 
 	imageArtData();
 	arrowClick();
-
+	highLightBox();
 	
 
 })();

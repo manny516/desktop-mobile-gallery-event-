@@ -380,6 +380,7 @@
     overflow-x: auto;
     height: 270px;
     font-family: arial;
+    position: relative;
   }
 
 
@@ -395,6 +396,8 @@
   .ad-highlight{
     background: #000;
     height:100%;
+    position: absolute;
+    color: #FFF;
   }
 
   .ad-content-container{

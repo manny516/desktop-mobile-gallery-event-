@@ -1,5 +1,19 @@
 (function(){
 
+	//Setup variables to grab elements in the DOM needed for the slider
+	var artTag = document.querySelector('.ad-container');
+	var highLight = document.querySelector('.ad-highlight');
+	var rightArrow = document.querySelector('#arrow-right');
+	var leftArrow = document.querySelector('#arrow-left');
+	var hiddenArrow = document.querySelector('hide-arrow');
+
+	//Set up variable to track browser width.
+	var browserWidth = window.innerWidth;
+
+	var count = 0; 
+
+
+	//store Ad slide data in an array Object
 	let adData = [ 
 
 	{
@@ -44,13 +58,8 @@
 
 	]
 
-	var artTag = document.querySelector('.ad-container');
-	var highLight = document.querySelector('.ad-highlight');
-	var rightArrow = document.querySelector('#arrow-right');
-	var leftArrow = document.querySelector('#arrow-left');
-	var hiddenArrow = document.querySelector('hide-arrow');
-	var browserWidth = window.innerWidth;
-
+	// Loop through Ad DATA / Check Browser size / Set Ad image variable based on browser size
+	//create article tag/ nest new element inside parent/ add class and background image to Article tag.
 	function imageArtData(){
 
 		for(let i = 0 ; i < adData.length ; i++){
@@ -66,12 +75,11 @@
 			let createArt = document.createElement('article');
 			artTag.appendChild(createArt);
 			var getArt = document.querySelectorAll("article");
-			//artTag.style.backgroundImage="url(images/"+deskImg+")";
-			//art
+			
 
 			for(let j = 0; j < getArt.length; j++){
 				var artName = getArt[j];
-				let classAdded = getArt[j].className="ad-slide";
+				getArt[j].className="ad-slide";
 			}
 			
 			artName.style.backgroundImage = "url(images/"+deskImg+")";
@@ -85,13 +93,10 @@
 
 	}
 
-	var count = 0; 
-	console.log(count);
-
+	//Left and right arrow click event handlers to track user clicks and position in Ad Data array
 	function arrowClick(){
+
 		rightArrow.addEventListener("click",function(){
-			//alert('you clicked left Arrow');
-			//console.log(adData.length);
 
 			if(leftArrow.classList = 'hide-arrow' ){
 				leftArrow.classList.remove('hide-arrow');
@@ -99,69 +104,49 @@
 				highLight.classList.add('stop-point');
 			}
 
-			if(count < adData.length ){
+			if(count <= adData.length	){
 				count += 1; 
-			}  else{
+				console.log(adData.length - 1);
+			} 
+
+
+			if(count === adData.length - 1){
 				console.log('Youve reach the end ');
 				rightArrow.className= "hide-arrow";
 			}
 			
-			console.log(count);
-			
-			console.log(adData.length);
+			console.log("Position in the array : " + count);
+			console.log(adData[count]);
 
-			/*for(let i = 0 ; i < adData.length; i++ ){
-				console.log(i++);	
-			}*/
 		});
 
 
 		leftArrow.addEventListener("click",function(){
-			//alert('you clicked left Arrow');
-			//console.log(adData.length);
-
+			
 				if(rightArrow.classList = 'hide-arrow' ){
 					rightArrow.classList.remove('hide-arrow');
 					rightArrow.classList.add('click-able');
 				}
 
-				if(count > 1){
+				if(count  > 0 ){
 					count -= 1; 
-				}else{
+				}
+
+				if(count === 0 ){
 					leftArrow.className= "hide-arrow";
 					highLight.classList.remove('stop-point');
 					console.log('Youve reached the beginning ');
 				}
-			
-			console.log(count);
-			
-			//console.log(adData.length);
 
-			/*for(let i = 0 ; i < adData.length; i++ ){
-				console.log(i++);	
-			}*/
+			console.log("Position in the array : " + count);
+			console.log(adData[count]);
+			
 		});
 	}
 
+	imageArtData();
 	arrowClick();
 
-
-
 	
-	/*var browserResize = window.addEventListener("resize", function(){
-
-		var browserWidth = window.innerWidth;
-		if( browserWidth <= 1020){
-			console.log("Mobile size");
-		}else{
-			console.log("Desktop");
-		}
-
-		console.log(browserWidth);
-		
-	});*/
-
-
-	imageArtData();
 
 })();

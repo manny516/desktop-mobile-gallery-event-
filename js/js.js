@@ -1,16 +1,18 @@
 (function(){
 
 	//Setup variables to grab elements in the DOM needed for the slider
-	var artTag = document.querySelector('.ad-container');
-	var highLight = document.querySelector('.ad-highlight');
-	var rightArrow = document.querySelector('#arrow-right');
-	var leftArrow = document.querySelector('#arrow-left');
-	var hiddenArrow = document.querySelector('hide-arrow');
+	let artTag = document.querySelector('.ad-container');
+	let highLight = document.querySelector('.ad-highlight');
+	let rightArrow = document.querySelector('#arrow-right');
+	let leftArrow = document.querySelector('#arrow-left');
+	let hiddenArrow = document.querySelector('hide-arrow');
+	let startNum = document.querySelector('.count-st');
+	let endNum = document.querySelector('.count-end');
 
 	//Set up variable to track browser width.
-	var browserWidth = window.innerWidth;
+	let browserWidth = window.innerWidth;
 
-	var count = 0; 
+	let count = 0; 
 
 
 	//store Ad slide data in an array Object
@@ -56,10 +58,27 @@
 		"mobile_img" : "set01_05_mobile.jpg"
 	}
 
-	]
+	];
+
+	endNum.innerHTML = adData.length;
+
+
+	//Creating the high light box to pull add data;
+	function highLightBox(){
+
+		let adContent = document.querySelector('.ad-logo');
+		let adHeadline = document.querySelector('.ad-headline');
+		let adSummary = document.querySelector('ad-summary');
+		let adCta = document.querySelector('ad-cta button');
+		
+
+		//console.log(adContent.childNodes);
+	}
+
+	highLightBox();
 
 	// Loop through Ad DATA / Check Browser size / Set Ad image variable based on browser size
-	//create article tag/ nest new element inside parent/ add class and background image to Article tag.
+	//create article tag/ nest new element inside parent/ add class and background image to Article tag
 	function imageArtData(){
 
 		for(let i = 0 ; i < adData.length ; i++){
@@ -74,7 +93,7 @@
 	
 			let createArt = document.createElement('article');
 			artTag.appendChild(createArt);
-			var getArt = document.querySelectorAll("article");
+			getArt = document.querySelectorAll("article");
 			
 
 			for(let j = 0; j < getArt.length; j++){
@@ -104,9 +123,10 @@
 				highLight.classList.add('stop-point');
 			}
 
-			if(count <= adData.length	){
+			if(count <= adData.length){
 				count += 1; 
 				console.log(adData.length - 1);
+				startNum.innerHTML = count + 1;
 			} 
 
 
@@ -130,6 +150,7 @@
 
 				if(count  > 0 ){
 					count -= 1; 
+					startNum.innerHTML = count + 1;
 				}
 
 				if(count === 0 ){

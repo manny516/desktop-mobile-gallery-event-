@@ -432,6 +432,10 @@
     float: right;
   }
 
+  .number-count{
+    display: inline-block;
+  }
+
    #arrow-left{
     margin-right: 20px;
   }

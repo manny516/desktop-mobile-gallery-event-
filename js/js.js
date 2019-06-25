@@ -1,13 +1,13 @@
 (function(){
 
 	//Setup variables to grab elements in the DOM needed for the slider
-	let artTag = document.querySelector('.slider-container');
-	let highLight = document.querySelector('.ad-highlight');
-	let rightArrow = document.querySelector('#arrow-right');
-	let leftArrow = document.querySelector('#arrow-left');
-	let hiddenArrow = document.querySelector('hide-arrow');
-	let startNum = document.querySelector('.count-st');
-	let endNum = document.querySelector('.count-end');
+	const artTag = document.querySelector('.slider-container');
+	const highLight = document.querySelector('.ad-highlight');
+	const rightArrow = document.querySelector('#arrow-right');
+	const leftArrow = document.querySelector('#arrow-left');
+	const hiddenArrow = document.querySelector('hide-arrow');
+	const startNum = document.querySelector('.count-st');
+	const endNum = document.querySelector('.count-end');
 
 	//Set up variable to track browser width.
 	let browserWidth = window.innerWidth;
@@ -66,9 +66,9 @@
 		//set default value of the count position to the beginning of the index if no value is present. 
 		countPosition = countPosition || 0 ;
 
-		let adLogo = document.querySelector('.ad-logo img');
-		let adHeadline = document.querySelector('.ad-headline h2');
-		let adSummary = document.querySelector('.ad-summary p');
+		const adLogo = document.querySelector('.ad-logo img');
+		const adHeadline = document.querySelector('.ad-headline h2');
+		const adSummary = document.querySelector('.ad-summary p');
 		let dataDisplay = adData[countPosition];
 
 		adLogo.setAttribute('src','images/' + dataDisplay['logo'] );
@@ -77,12 +77,18 @@
 
 		console.log(dataDisplay['header']);
 
+		if( browserWidth <= 1020){
+
+			highLight.classList.add('mobileview');
+		}
+
 		//console.log(adContent.childNodes);=
+
 	}
 
 	// Loop through Ad DATA / Check Browser size / Set Ad image variable based on browser size
 	//create article tag/ nest new element inside parent/ add class and background image to Article tag
-	function imageArtData(){
+	let imageArtData = () => {
 
 		for(let i = 0 ; i < adData.length ; i++){
 
@@ -120,7 +126,7 @@
 	}
 
 
-	function pixelFire(){
+	let pixelFire = () => {
 		  var evp = document.createElement('img');
 		  evp.height = 1;
 		  evp.width = 1;
@@ -135,94 +141,182 @@
 
 		let count = 0; 
 		let translateX = count * 100;
-		let slideAd = document.querySelectorAll('.ad-slide');
+		const slideAd = document.querySelectorAll('.ad-slide');
 		console.log(slideAd);
 
+
+		let deskHighLightR = () => {
+
+			if(leftArrow.classList = 'hide-arrow' ){
+				leftArrow.classList.remove('hide-arrow');
+				leftArrow.classList.add('click-able');
+				highLight.classList.add('stop-point');
+			}
+
+			if( count == 1){
+				highLight.classList.add('shove-slide');
+				translateX = -100;
+				translateX += 100;
+			}
+
+			if(count <= adData.length){
+				count += 1; 
+				startNum.innerHTML = count + 1;
+				highLightBox(count);
+				translateX -= 100;
+
+			} 
+
+			if( highLight.classList == 'ad-highlight stop-point shove-slide'){
+				for(let i = 0; i < slideAd.length; i++ ){
+					slideAd[i].style.transform = "translateX(" + translateX + "%)";
+				}
+			}
+
+			if(count === adData.length - 1){
+				console.log('Youve reach the end ');
+				rightArrow.className= "hide-arrow";
+			}
+				
+			console.log("Position in the array : " + count);
+		}
+
+
+		let deskHighLightL = () =>{
+
+			if(rightArrow.classList = 'hide-arrow' ){
+					rightArrow.classList.remove('hide-arrow');
+					rightArrow.classList.add('click-able');
+				}
+
+			if(count  > 0 ){
+				count -= 1; 
+				startNum.innerHTML = count + 1;
+				highLightBox(count);
+				translateX  += 100;
+			}
+
+			if( count == 1){
+				highLight.classList.remove('shove-slide');
+				for(let i = 0; i < slideAd.length; i++ ){
+					slideAd[i].style.transform = null;
+				};
+			}
+
+
+			if( highLight.classList == 'ad-highlight stop-point shove-slide' || highLight.classList == 'ad-highlight stop-point mobileview shove-slide'){
+
+				for(let i = 0; i < slideAd.length; i++ ){
+					slideAd[i].style.transform = "translateX(" + translateX + "%)";
+				}
+
+			}
+
+
+			if(count === 0 ){
+				leftArrow.className= "hide-arrow";
+				highLight.classList.remove('stop-point');
+				translateX = 100;
+				console.log('Youve reached the beginning ');
+			}
+
+			console.log("Position in the array : " + count);
+			console.log(adData[count]);
+
+		}
+
+
+
+
+
+		let mobileHighLightR = () => {
+
+			if(leftArrow.classList = 'hide-arrow' ){
+				leftArrow.classList.remove('hide-arrow');
+				leftArrow.classList.add('click-able');
+			}
+
+			if( count == 0){
+				translateX = -100;
+				translateX += 100;
+			}
+
+			if(count <= adData.length){
+				count += 1; 
+				startNum.innerHTML = count + 1;
+				highLightBox(count);
+				translateX -= 100;
+
+			} 
+
+			if( highLight.classList == 'ad-highlight mobileview'){
+				for(let i = 0; i < slideAd.length; i++ ){
+					slideAd[i].style.transform = "translateX(" + translateX + "%)";
+				}
+			}
+
+			if(count === adData.length - 1){
+				console.log('Youve reach the end ');
+				rightArrow.className= "hide-arrow";
+			}
+				
+			console.log("Position in the array : " + count);
+		}
+
+
+
+		let mobileHighLightL = () => {
+
+			if(rightArrow.classList = 'hide-arrow' ){
+				rightArrow.classList.remove('hide-arrow');
+				rightArrow.classList.add('click-able');
+			}
+
+			count -= 1; 
+			startNum.innerHTML = count + 1;
+			highLightBox(count);
+			translateX  += 100;
+			
+			for(let i = 0; i < slideAd.length; i++ ){
+				slideAd[i].style.transform = "translateX(" + translateX + "%)";
+			}
+
+			if(count === 0 ){
+				leftArrow.className= "hide-arrow";
+				translateX = 100;
+				console.log('Youve reached the beginning ');
+			}
+
+			console.log("Position in the array : " + count);
+			console.log(adData[count]);
+
+		}
+
+
+
+
+		//trigger for the right and left arrow to cycle through slide.
 		rightArrow.addEventListener("click",function(){
 
 				pixelFire();
-				
-				if(leftArrow.classList = 'hide-arrow' ){
-					leftArrow.classList.remove('hide-arrow');
-					leftArrow.classList.add('click-able');
-					highLight.classList.add('stop-point');
+				if(highLight.classList != 'ad-highlight mobileview' ){
+					deskHighLightR();
+				}else{
+
+					mobileHighLightR();
 				}
-
-				if( count == 1){
-					highLight.classList.add('shove-slide');
-					translateX = -100;
-					translateX += 100;
-				}
-
-				if(count <= adData.length){
-					count += 1; 
-					//console.log(adData.length - 1);
-					startNum.innerHTML = count + 1;
-					highLightBox(count);
-					translateX -= 100;
-
-				} 
-
-
-				if( highLight.classList == 'ad-highlight stop-point shove-slide'){
-					for(let i = 0; i < slideAd.length; i++ ){
-						slideAd[i].style.transform = "translateX(" + translateX + "%)";
-					}
-				}
-
-
-				if(count === adData.length - 1){
-					console.log('Youve reach the end ');
-					rightArrow.className= "hide-arrow";
-				}
-				
-				console.log("Position in the array : " + count);
 		});
 
 
 		leftArrow.addEventListener("click",function(){
 
 				pixelFire();
-				if(rightArrow.classList = 'hide-arrow' ){
-					rightArrow.classList.remove('hide-arrow');
-					rightArrow.classList.add('click-able');
+
+				if(highLight.classList != 'ad-highlight mobileview' ){
+					deskHighLightL();
+				}else{
+					mobileHighLightL();
 				}
-
-				if(count  > 0 ){
-					count -= 1; 
-					startNum.innerHTML = count + 1;
-					highLightBox(count);
-					translateX  += 100;
-				}
-
-				if( count == 1){
-					highLight.classList.remove('shove-slide');
-					for(let i = 0; i < slideAd.length; i++ ){
-						slideAd[i].style.transform = null;
-					};
-				}
-
-
-				if( highLight.classList == 'ad-highlight stop-point shove-slide'){
-
-					for(let i = 0; i < slideAd.length; i++ ){
-						slideAd[i].style.transform = "translateX(" + translateX + "%)";
-					}
-
-				}
-
-
-				if(count === 0 ){
-					leftArrow.className= "hide-arrow";
-					highLight.classList.remove('stop-point');
-					translateX = 100;
-					console.log('Youve reached the beginning ');
-				}
-
-				console.log("Position in the array : " + count);
-				console.log(adData[count]);
-				console.log(translateX);
-			
 		});
 
 		 console.log('hello');
@@ -230,12 +324,15 @@
 	}
 
 
+
+
+
+	//Window resize Event listener to handle images and slider functionality on mobile or destop size. 
 	window.addEventListener('resize', function(){
+
 		let browserWidth = window.innerWidth;
 
 		for(let i = 0 ; i < adData.length ; i++){
-
-			//console.log("Mobile image : " + adData[i]['mobile_img'] + "Desktop : " + adData[i]['desk_img']);
 
 			if( browserWidth <= 1020){
 				var imgView = adData[i]['mobile_img'];
@@ -243,32 +340,22 @@
 				var imgView = adData[i]['desk_img'];
 			}
 
-			var getAdSlide = document.querySelectorAll('.ad-slide');
-
-			//console.log(getAdSlide);
-
-			/*for(let u = 0; u < getAdSlide.length; u++){
-				console.log(getAdSlide[u]);
-			}*/
+			let getAdSlide = document.querySelectorAll('.ad-slide');
 
 			getAdSlide[i].style.backgroundImage = "url(images/"+imgView+")";
 
 		}
 		
 		if(browserWidth >= 1020 ){
-			/*browserView = 'desktop';
-			console.log(browserView);
-			arrowClick(browserView);*/
 			highLight.classList.remove('mobileview');
 		}else{
 			highLight.classList.add('mobileview');
 		}
 
 
+
 	},false);
 
-
-	//console.log(browserView);
 	imageArtData();
 	arrowClick();
 	highLightBox();

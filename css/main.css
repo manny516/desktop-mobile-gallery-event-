@@ -473,10 +473,6 @@ Media Queries - 04.
       margin:auto;
     }
 
-    .ad-highlight{
-      min-width:0;
-      width: 100%;
-    }
     .ad-content-container{
       text-align: center;
     }
@@ -486,6 +482,16 @@ Media Queries - 04.
       padding-top: 10px;
     }
 
+
+  }
+
+
+  @media only screen and (max-width: 500px) {
+
+     .ad-highlight{
+      min-width:0;
+      width: 100%;
+    }
 
   }
  

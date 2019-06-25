@@ -61,7 +61,7 @@
 	endNum.innerHTML = adData.length;
 
 	//Creating the high light box to pull add data;
-	function highLightBox(countPosition){
+	let highLightBox = (countPosition) => {
 
 		//set default value of the count position to the beginning of the index if no value is present. 
 		countPosition = countPosition || 0 ;
@@ -72,17 +72,13 @@
 		let dataDisplay = adData[countPosition];
 
 		adLogo.setAttribute('src','images/' + dataDisplay['logo'] );
+
 		adHeadline.innerHTML = dataDisplay['header'];
 		adSummary.innerHTML = dataDisplay['summary'];
 
-		console.log(dataDisplay['header']);
-
 		if( browserWidth <= 1020){
-
 			highLight.classList.add('mobileview');
 		}
-
-		//console.log(adContent.childNodes);=
 
 	}
 
@@ -108,7 +104,7 @@
 			
 
 			for(let j = 0; j < getArt.length; j++){
-				var artName = getArt[j];
+				artName = getArt[j];
 				getArt[j].className="ad-slide";
 			}
 			
@@ -116,24 +112,19 @@
 			artName.style.backgroundSize = "cover";
 
 
-
 		}
-
-		console.log(adData);
-		console.log(getArt[1]);
-		
 
 	}
 
-
+	//Ad Pixel fire / Create pixel img to fire
 	let pixelFire = () => {
-		  var evp = document.createElement('img');
-		  evp.height = 1;
-		  evp.width = 1;
-		  evp.style.display = "none";
-		  evp.src = 'https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=28240034&PluID=0&ord=[timestamp]&rtu=-1&pcp=$$$$page_view_id=%%PATTERN:page_view_id%%&pos=%%PATTERN:pos%%$$$$) ';
-		  document.body.appendChild(evp);
-		  console.log("pixel Fire"+ evp.src);
+		  let adPixel = document.createElement('img');
+		  adPixel.height = 1;
+		  adPixel.width = 1;
+		  adPixel.style.display = "none";
+		  adPixel.src = 'https://bs.serving-sys.com/serving/adServer.bs?cn=display&c=19&mc=imp&pli=28240034&PluID=0&ord=[timestamp]&rtu=-1&pcp=$$$$page_view_id=%%PATTERN:page_view_id%%&pos=%%PATTERN:pos%%$$$$) ';
+		  document.body.appendChild(adPixel);
+		  console.log("pixel Fire"+ adPixel.src);
 	}
 
 	//Left and right arrow click event handlers to track user clicks and position in Ad Data array
@@ -142,7 +133,6 @@
 		let count = 0; 
 		let translateX = count * 100;
 		const slideAd = document.querySelectorAll('.ad-slide');
-		console.log(slideAd);
 
 
 		let deskHighLightR = () => {
@@ -153,7 +143,7 @@
 				highLight.classList.add('stop-point');
 			}
 
-			if( count == 1){
+			if( count === 1){
 				highLight.classList.add('shove-slide');
 				translateX = -100;
 				translateX += 100;
@@ -175,7 +165,7 @@
 
 			if(count === adData.length - 1){
 				console.log('Youve reach the end ');
-				rightArrow.className= "hide-arrow";
+				rightArrow.className = "hide-arrow";
 			}
 				
 			console.log("Position in the array : " + count);
@@ -185,9 +175,9 @@
 		let deskHighLightL = () =>{
 
 			if(rightArrow.classList = 'hide-arrow' ){
-					rightArrow.classList.remove('hide-arrow');
-					rightArrow.classList.add('click-able');
-				}
+				rightArrow.classList.remove('hide-arrow');
+				rightArrow.classList.add('click-able');
+			}
 
 			if(count  > 0 ){
 				count -= 1; 
@@ -196,13 +186,12 @@
 				translateX  += 100;
 			}
 
-			if( count == 1){
+			if( count === 1){
 				highLight.classList.remove('shove-slide');
 				for(let i = 0; i < slideAd.length; i++ ){
 					slideAd[i].style.transform = null;
 				};
 			}
-
 
 			if( highLight.classList == 'ad-highlight stop-point shove-slide' || highLight.classList == 'ad-highlight stop-point mobileview shove-slide'){
 
@@ -212,16 +201,14 @@
 
 			}
 
+			console.log("Position in the array : " + count);
 
 			if(count === 0 ){
-				leftArrow.className= "hide-arrow";
+				leftArrow.className = "hide-arrow";
 				highLight.classList.remove('stop-point');
 				translateX = 100;
 				console.log('Youve reached the beginning ');
 			}
-
-			console.log("Position in the array : " + count);
-			console.log(adData[count]);
 
 		}
 
@@ -236,7 +223,7 @@
 				leftArrow.classList.add('click-able');
 			}
 
-			if( count == 0){
+			if( count === 0){
 				translateX = -100;
 				translateX += 100;
 			}
@@ -246,7 +233,6 @@
 				startNum.innerHTML = count + 1;
 				highLightBox(count);
 				translateX -= 100;
-
 			} 
 
 			if( highLight.classList == 'ad-highlight mobileview'){
@@ -255,12 +241,13 @@
 				}
 			}
 
+			console.log("Position in the array : " + count);
+
 			if(count === adData.length - 1){
 				console.log('Youve reach the end ');
-				rightArrow.className= "hide-arrow";
+				rightArrow.className = "hide-arrow";
 			}
 				
-			console.log("Position in the array : " + count);
 		}
 
 
@@ -281,14 +268,14 @@
 				slideAd[i].style.transform = "translateX(" + translateX + "%)";
 			}
 
+
+			console.log("Position in the array : " + count);
+
 			if(count === 0 ){
-				leftArrow.className= "hide-arrow";
+				leftArrow.className = "hide-arrow";
 				translateX = 100;
 				console.log('Youve reached the beginning ');
 			}
-
-			console.log("Position in the array : " + count);
-			console.log(adData[count]);
 
 		}
 
@@ -305,22 +292,18 @@
 
 					mobileHighLightR();
 				}
-		});
+		},false);
 
 
 		leftArrow.addEventListener("click",function(){
 
 				pixelFire();
-
 				if(highLight.classList != 'ad-highlight mobileview' ){
 					deskHighLightL();
 				}else{
 					mobileHighLightL();
 				}
-		});
-
-		 console.log('hello');
-
+		},false);
 	}
 
 
@@ -335,9 +318,9 @@
 		for(let i = 0 ; i < adData.length ; i++){
 
 			if( browserWidth <= 1020){
-				var imgView = adData[i]['mobile_img'];
+				imgView = adData[i]['mobile_img'];
 			}else{
-				var imgView = adData[i]['desk_img'];
+				imgView = adData[i]['desk_img'];
 			}
 
 			let getAdSlide = document.querySelectorAll('.ad-slide');
@@ -360,5 +343,4 @@
 	arrowClick();
 	highLightBox();
 	
-
 })();

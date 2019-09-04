@@ -285,24 +285,24 @@
 		//trigger for the right and left arrow to cycle through slide.
 		rightArrow.addEventListener("click",function(){
 
-				pixelFire();
-				if(highLight.classList != 'ad-highlight mobileview' ){
-					deskHighLightR();
-				}else{
+			pixelFire();
+			if(highLight.classList != 'ad-highlight mobileview' ){
+				deskHighLightR();
+			}else{
 
-					mobileHighLightR();
-				}
+				mobileHighLightR();
+			}
 		},false);
 
 
 		leftArrow.addEventListener("click",function(){
 
-				pixelFire();
-				if(highLight.classList != 'ad-highlight mobileview' ){
-					deskHighLightL();
-				}else{
-					mobileHighLightL();
-				}
+			pixelFire();
+			if(highLight.classList != 'ad-highlight mobileview' ){
+				deskHighLightL();
+			}else{
+				mobileHighLightL();
+			}
 		},false);
 	}
 
